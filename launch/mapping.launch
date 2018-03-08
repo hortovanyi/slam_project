@@ -34,7 +34,7 @@
 
             <!-- Loop Closure Detection -->
             <!-- 0=SURF 1=SIFT 2=ORB 3=FAST/FREAK 4=FAST/BRIEF 5=GFTT/FREAK 6=GFTT/BRIEF 7=BRISK 8=GFTT/ORB 9=KAZE -->
-            <param name="Kp/DetectorStrategy" type="string" value="0"/>
+            <param name="Kp/DetectorStrategy" type="string" value="4"/>
             <!-- Maximum visual words per image (bag-of-words) -->
             <param name="Kp/MaxFeatures" type="string" value="400"/>
 
@@ -51,6 +51,19 @@
             <!-- Set to false to avoid saving data when robot is not moving -->
             <param name="Mem/NotLinkedNodesKept" type="string" value="false"/>
 
+        </node>
+
+        <!-- visualization with rtabmapviz -->
+        <node pkg="rtabmap_ros" type="rtabmapviz" name="rtabmapviz" args="-d $(find rtabmap_ros)/launch/config/rgbd_gui.ini" output="screen">
+            <param name="subscribe_depth" type="bool" value="true"/>
+            <param name="subscribe_scan" type="bool" value="true"/>
+            <param name="frame_id" type="string" value="robot_footprint"/>
+
+            <remap from="rgb/image" to="$(arg rgb_topic)"/>
+            <remap from="depth/image" to="$(arg depth_topic)"/>
+            <remap from="rgb/camera_info" to="$(arg camera_info_topic)"/>
+            <remap from="scan" to="/scan"/>
+            <remap from="odom" to="/odom"/>
         </node>
     </group>
 </launch>
