@@ -45,7 +45,7 @@
                 <alwaysOn>true</alwaysOn>
                 <updateRate>10.0</updateRate>
                 <cameraName>camera</cameraName>
-                <frameName>camera</frameName>
+                <frameName>camera_rgbd_frame</frameName>
                 <!-- <frameName>camera_rgbd_frame</frameName> -->
                 <imageTopicName>/camera/rgb/image_raw</imageTopicName>
                 <depthImageTopicName>/camera/depth/image_raw</depthImageTopicName>

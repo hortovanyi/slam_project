@@ -1,7 +1,7 @@
 <?xml version='1.0'?>
 
 <robot name="nick_bot" xmlns:xacro="http://www.ros.org/wiki/xacro">
-    <xacro:include filename="$(find slam_project)/urdf/nick_bot.gazebo" />
+    <xacro:include filename="$(find slam_project)/urdf/nick_bot.gazebo"/>
     <link name="robot_footprint"></link>
 
     <joint name="robot_footprint_joint" type="fixed">
@@ -41,7 +41,6 @@
         <limit effort="10000" velocity="1000"/>
         <joint_properties damping="1.0" friction="1.0"/>
     </joint>
-
 
     <link name='right_wheel'>
         <inertial>
@@ -96,11 +95,18 @@
             </geometry>
         </visual>
     </link>
-    <joint type="fixed" name="camera_joint">
+    <joint type="fixed" name="camera_link">
         <origin xyz="0.25 0 0" rpy="0 0 0"/>
         <child link="camera"/>
         <parent link="chassis"/>
     </joint>
+
+    <joint name="camera_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="-1.5707 0 -1.5707"/>
+        <parent link="camera"/>
+        <child link="camera_rgbd_frame"/>
+    </joint>
+    <link name="camera_rgbd_frame"/>
 
     <link name='hokuyo'>
         <inertial>
