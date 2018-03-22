@@ -12,7 +12,8 @@
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <!-- arg name="world_name" value="$(find udacity_bot)/worlds/udacity.world"/>i-->
     <!-- <arg name="world_name" value="$(arg world_file"/> -->
-    <arg name="world_name" value="$(find slam_project)/worlds/kitchen_dining.world"/>
+    <!-- <arg name="world_name" value="$(find slam_project)/worlds/kitchen_dining.world"/> -->
+    <arg name="world_name" value="$(find slam_project)/worlds/nicks_building.world"/>
     <arg name="paused" value="$(arg paused)"/>
     <arg name="use_sim_time" value="$(arg use_sim_time)"/>
     <arg name="gui" value="$(arg gui)"/>
