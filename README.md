@@ -21,6 +21,14 @@ The [RTAB-Map ROS wrapper](http://wiki.ros.org/rtabmap_ros) is leveraged with vi
 ## Background
 When a robot encounters a new environment where there is no supplied map, it needs to be able to create this map and localise its pose using it. This combined localisation and mapping process is referred to as SLAM (Simultaneous Localisation and Mapping).
 
+The main mapping algorithms are [Occupancy Grid Mapping](https://en.wikipedia.org/wiki/Occupancy_grid_mapping), [Grid-based FastSLAM](http://ais.informatik.uni-freiburg.de/teaching/ws12/mapping/pdf/slam13-gridfastslam.pdf),[ Graph-SLAM](https://en.wikipedia.org/wiki/GraphSLAM) and [RTAB-Map](http://introlab.github.io/rtabmap/).
+
+The Occupancy Grid Mapping is a 2D algorithm where each grid cell is identified as Unknown/Undiscovered Zone, Free Zone or Occupied. This represents a slice of the 3D world.
+
+The Grid-Based FastSLAM approach combines SLAM (Synchronised Location and Mapping) using a MCL (Monte Carlo Localisation) Algorithm and an Occupancy Grid Mapping. The main advantage of is the MCL particle filter approach but it always assumes there are known landmark positions. Thus it is unable to model an arbitrary environment.
+
+Graph-SLAM uses a graph based approach to represent poses, features from the environment, motion constraints (between two poses) and measurement constraints (ties together a feature and a pose). It solves the full SLAM problem, it covers the entire path and map and not the most recent pose.
+
 This project uses RTAB-Map, which is a Graph-SLAM approach that uses loop closure with [Visual Bag-of-Words](https://en.wikipedia.org/wiki/Bag-of-words_model_in_computer_vision) for optimisation.
 
 The loop closure detection occurs against working memory to constrain the number of images interrogated. Working memory can be transferred and retrieved from long term memory to reduce complexity. The algorithm used for loop closure detection is [SURF](http://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_feature2d/py_surf_intro/py_surf_intro.html) (Speeded Up Robust Features).
@@ -31,6 +39,7 @@ Robots are of varying dimensions inclusive of height. Whilst mapping a 2d enviro
 
 However building a 3D map is more costly then a 2D map. This is not only in terms of Compute & Data costs but also in the cost of the sensors required. However, simple sensors such as a single camera may be cheaper but the algorithms required can be more complex.
 
+
 ## Robot Model Configuration
 The robot model used was based on the nick_bot created in the [previous project](https://medium.com/@NickHortovanyi/where-am-i-6cc0f6608c4c) as the student robot model (which had a square base with two actuators for the left and right wheels). The camera was removed and replaced with a kinect leveraging the [openni_camera ros package](http://wiki.ros.org/openni_camera) with the gazebo controller [Openni Kinect](http://gazebosim.org/tutorials?tut=ros_gzplugins#OpenniKinect).
 
@@ -39,6 +48,10 @@ No changes were made to the hokuyo laser range finder.
 An additional joint was added to rotate the kinect data 180%. It was positioned on the front of the robot so as to not interfere with the laser range finder.
 
 The nick_bot configuration files can be found under the urdf directory.
+
+Visualization of the [frames](https://github.com/hortovanyi/slam_project/raw/master/output/frames.pdf) follows
+
+![`frames.png`](https://github.com/hortovanyi/slam_project/blob/master/output/frames.png?raw=true)
 
 ## World Creation
 Two worlds were created in gazebo - one supplied as `kitchen_dining.world` and the other student customised `nicks_building.world`
